@@ -22,16 +22,103 @@ void setup() {
 void loop() {
   // Check if the button is pressed
   if (digitalRead(buttonPin) == LOW) {
-    // Morse code for "Roshan"
-    BlinknameinMorse(".-.");
-    BlinknameinMorse("---");
-    BlinknameinMorse("...");
-    BlinknameinMorse("....");
-    BlinknameinMorse(".-");
-    BlinknameinMorse("-.");
+    if (Serial.available() > 0) 
+    { 
+      String name = Serial.readString(); // Read the entire input as a string
+      Converttomorsecode(name);
+      delay(5000); // Wait before allowing another button press
+    }
+  }
+}
 
-    // Wait before allowing the button to trigger the sequence again
-    delay(5000);
+
+void Converttomorsecode(String name) {
+  for (int i = 0; i < name.length(); i++) 
+  {
+    char letter = toupper(name[i]); // Convert to uppercase for consistency
+
+    switch (letter) {
+      case 'A': 
+      BlinknameinMorse(".-"); 
+      break;
+      case 'B': 
+      BlinknameinMorse("-..."); 
+      break;
+      case 'C': 
+      BlinknameinMorse("-.-."); 
+      break;
+      case 'D': 
+      BlinknameinMorse("-.."); 
+      break;
+      case 'E': 
+      BlinknameinMorse("."); 
+      break;
+      case 'F': 
+      BlinknameinMorse("..-."); 
+      break;
+      case 'G': 
+      BlinknameinMorse("--."); 
+      break;
+      case 'H': 
+      BlinknameinMorse("...."); 
+      break;
+      case 'I': 
+      BlinknameinMorse(".."); 
+      break;
+      case 'J': 
+      BlinknameinMorse(".---"); 
+      break;
+      case 'K': 
+      BlinknameinMorse("-.-"); 
+      break;
+      case 'L': 
+      BlinknameinMorse(".-.."); 
+      break;
+      case 'M': 
+      BlinknameinMorse("--"); 
+      break;
+      case 'N': 
+      BlinknameinMorse("-."); 
+      break;
+      case 'O':
+       BlinknameinMorse("---"); 
+      break;
+      case 'P': 
+      BlinknameinMorse(".--."); 
+      break;
+      case 'Q': 
+      BlinknameinMorse("--.-"); 
+      break;
+      case 'R': 
+      BlinknameinMorse(".-."); 
+      break;
+      case 'S': 
+      BlinknameinMorse("..."); 
+      break;
+      case 'T': 
+      BlinknameinMorse("-"); 
+      break;
+      case 'U': 
+      BlinknameinMorse("..-"); 
+      break;
+      case 'V': 
+      BlinknameinMorse("...-"); 
+      break;
+      case 'W': 
+      BlinknameinMorse(".--"); 
+      break;
+      case 'X': 
+      BlinknameinMorse("-..-"); 
+      break;
+      case 'Y': 
+      BlinknameinMorse("-.--"); 
+      break;
+      case 'Z': 
+      BlinknameinMorse("--..");
+      break;
+      default: 
+      break;
+    }
   }
 }
 
@@ -42,10 +129,10 @@ void BlinknameinMorse(String code) {
       delay(200); // Dot duration
     } else if (code[i] == '-') {
       digitalWrite(ledPin, HIGH);
-      delay(500); // Dash duration
+      delay(600); // Dash duration
     }
     digitalWrite(ledPin, LOW);
-    delay(400); // Short pause between signals
+    delay(200); // Short pause between signals
   }
   // Space between letters
   delay(600);
